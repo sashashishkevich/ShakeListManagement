@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="abt-wG-nFt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="abt-wG-nFt">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -98,7 +98,7 @@
                                             <constraint firstAttribute="height" constant="22" id="vzU-QK-8Ma"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <state key="normal" title="NFSW">
+                                        <state key="normal" title="NSFW">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <variation key="default">
@@ -766,6 +766,12 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="New ShakeList" id="Gyi-Z1-ab3">
+                        <barButtonItem key="leftBarButtonItem" image="back_icon.png" id="ysd-Bh-XlW">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="createNewShakeList:" destination="BYZ-38-t0r" id="Xrf-qK-qsW"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="save_icon.png" id="S8T-kH-ERc">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
@@ -1246,7 +1252,7 @@
                                             <constraint firstAttribute="width" constant="62" id="mBQ-UW-O2P"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="NFSW">
+                                        <state key="normal" title="NSFW">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <variation key="default">
@@ -1771,7 +1777,7 @@
                                             <rect key="frame" x="189" y="11" width="80" height="25"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NFSW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYp-yO-2FJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NSFW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYp-yO-2FJ">
                                         <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2158,12 +2164,12 @@
                                 <exclude reference="rKf-62-Nvu"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="TnN-Vw-C8q"/>
-                                <exclude reference="sXN-gj-SDu"/>
-                                <exclude reference="shn-8F-Odz"/>
                                 <exclude reference="8Ga-WQ-k2J"/>
                                 <exclude reference="bw1-Vl-Omc"/>
                                 <exclude reference="dkR-EZ-KDv"/>
+                                <exclude reference="TnN-Vw-C8q"/>
+                                <exclude reference="sXN-gj-SDu"/>
+                                <exclude reference="shn-8F-Odz"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -2172,12 +2178,12 @@
                                 <include reference="rKf-62-Nvu"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="TnN-Vw-C8q"/>
-                                <include reference="sXN-gj-SDu"/>
-                                <include reference="shn-8F-Odz"/>
                                 <include reference="8Ga-WQ-k2J"/>
                                 <include reference="bw1-Vl-Omc"/>
                                 <include reference="dkR-EZ-KDv"/>
+                                <include reference="TnN-Vw-C8q"/>
+                                <include reference="sXN-gj-SDu"/>
+                                <include reference="shn-8F-Odz"/>
                             </mask>
                         </variation>
                     </view>
@@ -2210,6 +2216,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back_icon.png" width="30" height="32"/>
         <image name="checkbox_off.png" width="50" height="50"/>
         <image name="create_btn.png" width="50" height="30"/>
         <image name="line_img.png" width="360" height="3"/>
