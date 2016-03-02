@@ -1,48 +1,32 @@
 //
-//  LoginViewController.m
+//  LoginHomeViewController.m
 //  ShakeLists
 //
-//  Created by Software Superstar on 2/26/16.
+//  Created by Software Superstar on 3/2/16.
 //  Copyright © 2016 Software Superstar. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "LoginHomeViewController.h"
 
-@interface LoginViewController () {
+@interface LoginHomeViewController () {
     UIView *rootView;
 }
 
 @end
 
-static NSString * const sampleDescription1 = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-static NSString * const sampleDescription2 = @"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.";
-static NSString * const sampleDescription3 = @"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.";
-static NSString * const sampleDescription4 = @"Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.";
-
-@implementation LoginViewController
+@implementation LoginHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    rootView = self.navigationController.view;
-
-
-    NSString* userNameStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
-    self.view.hidden = NO;
+    // Hide the navigation bar.
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     
-    self.userNameTextView.delegate = self;
-    self.passwordTextView.delegate = self;
-
-    if (userNameStr != nil) {
-
-//        self.view.hidden = YES;
-//        UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
-//        [self.navigationController pushViewController:controller animated:YES];
-    }
+    rootView = self.navigationController.view;
     
     // Set the intro view
-    [self setIntroView];
+//    [self setIntroView];
 
 }
 
@@ -58,13 +42,13 @@ static NSString * const sampleDescription4 = @"Nam libero tempore, cum soluta no
     page1.desc = @"Pellentesque vel aliquet sem, at suscipit nisi. Donec at nibh. Curabitur placerat mi eu mauris pellentesque conque.";
     page1.titlePositionY = self.view.frame.size.height/3;
     page1.descPositionY = page1.titlePositionY-50;
-
+    
     EAIntroPage *page2 = [EAIntroPage page];
     page2.title = @"Make A List!";
     page2.desc = @"Creating a new list is simple...";
     page2.titlePositionY = self.view.frame.size.height/3;
     page2.descPositionY = page1.titlePositionY-50;
-
+    
     EAIntroPage *page3 = [EAIntroPage page];
     page3.title = @"Take A List!";
     page3.desc =@"It's a big world! See what others are shaking!";
@@ -103,7 +87,7 @@ static NSString * const sampleDescription4 = @"Nam libero tempore, cum soluta no
     page4.onPageDidAppear = ^{
         [intro limitScrollingToPage:intro.visiblePageIndex];
         intro.skipButton.enabled = YES;
-        [UIView animateWithDuration:0.3f animations:^{
+        [UIView animateWithDuration:0.1f animations:^{
             intro.skipButton.alpha = 1.f;
         }];
     };
@@ -126,39 +110,5 @@ static NSString * const sampleDescription4 = @"Nam libero tempore, cum soluta no
     // Pass the selected object to the new view controller.
 }
 */
-
-#pragma mark Textfield delegate.
-
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (IBAction)loginUser:(id)sender {
-    if ([self.userNameTextView.text isEqualToString:@""]) {
-        UIAlertController * alert = [UIAlertController
-                                     alertControllerWithTitle:@"Input Error"
-                                     message:@"Please fill out the UserName Field."
-                                     preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* okButton = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action)
-                                   {
-                                       //Handel your yes please button action here
-                                   }];
-        [alert addAction:okButton];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
-        [self.userNameTextView becomeFirstResponder];
-        
-    } else {
-        
-        [[NSUserDefaults standardUserDefaults] setObject:self.userNameTextView.text forKey:@"USER_NAME_KEY"];
-        NSLog(@"UserName : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"]);
-    }
-}
 
 @end

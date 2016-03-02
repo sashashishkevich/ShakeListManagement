@@ -1,5 +1,5 @@
 //
-//  LoginViewController.h
+//  EmailLoginViewController.h
 //  ShakeLists
 //
 //  Created by Software Superstar on 2/26/16.
@@ -7,13 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EAIntroView.h"
-
-@interface LoginViewController : UIViewController<UITextFieldDelegate, EAIntroDelegate>
+    
+@interface EmailLoginViewController : UIViewController<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextView;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextView;
 
 - (IBAction)loginUser:(id)sender;
-
-@end
+    @end
