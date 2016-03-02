@@ -129,7 +129,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:@"MY_SHAKE_LIST"];
 
                 // Push view controller.
-                [self performSelector:@selector(pushViewController) withObject:nil afterDelay:1.0];
+                [self performSelector:@selector(pushViewController) withObject:nil afterDelay:0.f];
                 
             }
         }];

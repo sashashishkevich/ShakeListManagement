@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EAIntroView.h"
 
-@interface LoginViewController : UIViewController<UITextFieldDelegate>
+@interface LoginViewController : UIViewController<UITextFieldDelegate, EAIntroDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextView;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextView;
