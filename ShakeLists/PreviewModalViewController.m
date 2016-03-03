@@ -127,6 +127,8 @@
     
     MyShakeListViewController *myShakeListController;
     [myShakeListController.shakeListTableView reloadData];
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

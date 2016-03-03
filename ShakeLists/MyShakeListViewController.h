@@ -22,5 +22,6 @@
 @property (nonatomic, strong) NSMutableArray *listMutableArray;
 
 - (IBAction)testSetting:(id)sender;
+- (IBAction)createNewShakeList:(id)sender;
 
 @end

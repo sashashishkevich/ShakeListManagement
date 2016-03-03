@@ -11,6 +11,7 @@
 @interface NewShakeListViewController : UIViewController <UITextFieldDelegate> {
     NSInteger cellNumber;
     NSIndexPath* cellIndexPath;
+    NSString *userName;
     BOOL nfsw_checked;
     BOOL g_rated_checked;
 }
@@ -24,8 +25,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *nfswCheckbox;
 @property (weak, nonatomic) IBOutlet UIButton *gRatedCheckbox;
 @property (nonatomic, strong) NSMutableArray *phraseArray;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (weak, nonatomic) IBOutlet UINavigationItem *titleNavigationItem;
 
 - (IBAction)createNewShakeList:(id)sender;
+- (IBAction)backNewShakeList:(id)sender;
 - (IBAction)nfswButtonClicked:(id)sender;
 - (IBAction)gRatedButtonClicked:(id)sender;
 - (IBAction)nfswCheckboxClicked:(id)sender;

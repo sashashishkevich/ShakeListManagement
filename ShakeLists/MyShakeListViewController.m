@@ -155,6 +155,19 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [[NSUserDefaults standardUserDefaults] setValue:@"update" forKey:@"SHAKE_EDIT_KEY"];
+    
+    NSMutableDictionary *selectedDict = [self.listMutableArray objectAtIndex:indexPath.row];
+    if ([[selectedDict objectForKey:@"username"] isEqualToString:userName]) {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedDict forKey:@"SELECTED_SHAKE_KEY"];
+        
+        UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NewShakeListController"];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return 800; // or any number based on your estimation
@@ -164,7 +177,6 @@
 -(void)selectAtIndex:(int)index inCombox:(LMComBoxView *)_combox {
     NSLog(@"combox index : %d", index);
 }
-
 
 /*
  #pragma mark - Navigation
@@ -178,4 +190,9 @@
 
 - (IBAction)testSetting:(id)sender {
 }
+
+- (IBAction)createNewShakeList:(id)sender {
+    [[NSUserDefaults standardUserDefaults] setValue:@"create" forKey:@"SHAKE_EDIT_KEY"];
+}
+
 @end

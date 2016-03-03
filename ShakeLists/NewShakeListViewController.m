@@ -36,15 +36,37 @@
     self.phrasesLabel.text = @"Phrases (0)";
     
     [self.view bringSubviewToFront:self.phraseTableView];
+    self.titleNavigationItem.title = @"New ShakeList";
     
     cellNumber = 1;
     nfsw_checked = NO;
     g_rated_checked = NO;
+    userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
     
-    Firebase *fb = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/condition"];
-    [fb observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        //        self.labelCondition.text = snapshot.value;
-    }];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SHAKE_EDIT_KEY"] isEqualToString:@"update"]) {
+        
+        self.titleNavigationItem.title = @"Change ShakeList";
+        
+        NSDictionary *selectedDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"SELECTED_SHAKE_KEY"];
+        
+        [self.shakeListTitleTextField setText:[selectedDict objectForKey:@"title"]];
+        
+        [self.listSaveTypeSegment setSelectedSegmentIndex:[[selectedDict objectForKey:@"type"] integerValue]];
+        
+        [self setNFSWCheckboxImage:[[selectedDict objectForKey:@"nfsw"] boolValue]];
+        
+        [self setGRatedCheckboxImage:[[selectedDict objectForKey:@"g-rated"] boolValue]];
+        
+        self.tokens = [[selectedDict objectForKey:@"tags"] mutableCopy];
+        [self.tokenField reloadData];
+        
+        [self.phraseSelectionSegment setSelectedSegmentIndex:[[selectedDict objectForKey:@"phrase-selection"] integerValue]];
+        
+        self.phraseArray = [[selectedDict objectForKey:@"phrases"] mutableCopy];
+        cellNumber = self.phraseArray.count+1;
+        [self.phraseTableView reloadData];
+
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,46 +116,148 @@
                           forKey:@"phrase-selection"];
         [shakeListData setObject:self.phraseArray
                           forKey:@"phrases"];
-        
-        NSLog(@"shakelistdata result : \n %@", shakeListData);
-        
-        // Connect to firebase.
-        Firebase *ref = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/shake-lists"];
-        
-        NSString* userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
-        
-        Firebase *postRef = [ref childByAppendingPath:userName];
-        Firebase *post1Ref = [postRef childByAutoId];
-        
-        [post1Ref setValue:shakeListData withCompletionBlock:^(NSError *error, Firebase *ref) {
-            
-            if (error) {
-                [self.navigationController.view makeToast:@"Data could not be saved."];
-                
-            } else {
-                [self.navigationController.view makeToast:@"Data saved successfully."];
-                
-                // Save the saved data to MyShakeList.
-                NSMutableArray *myShakeListMutableAry = [NSMutableArray array];
-                
-                NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"];
-                
-                for (NSDictionary *dict in prevMyShakeListMutableAry) {
-                    [myShakeListMutableAry addObject:dict];
-                }
-                
-                [shakeListData setValue:userName forKey:@"username"];
-                [myShakeListMutableAry addObject:shakeListData];
-                
-                // Add the selected shake list to my shake list.
-                [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:@"MY_SHAKE_LIST"];
 
-                // Push view controller.
-                [self performSelector:@selector(pushViewController) withObject:nil afterDelay:0.f];
-                
-            }
-        }];
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SHAKE_EDIT_KEY"] isEqualToString:@"create"]) {
+            
+            [self addShakeList:shakeListData];
+            
+        } else {
+            [self changeShakeList:shakeListData];
+        }
     }
+}
+
+- (IBAction)backNewShakeList:(id)sender {
+
+    NSString *messageStr = @"Do you want to exit shakelist editing ?";
+
+    UIAlertController *alert = [UIAlertController
+                                alertControllerWithTitle:@"Confirm Message\n"
+                                message:messageStr
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *yesButton = [UIAlertAction
+                                actionWithTitle:@"YES"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * _Nonnull action) {
+                                    
+                                    [self pushViewController];
+                                }];
+    
+    UIAlertAction *noButton = [UIAlertAction
+                               actionWithTitle:@"NO"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * _Nonnull action) {
+                                   
+                                   [self createNewShakeList:sender];
+                               }];
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+// Create a new shake list.
+- (void)addShakeList:(NSMutableDictionary *) dict {
+    
+    NSLog(@"shakelistdata result : \n %@", dict);
+    
+    // Connect to firebase.
+    Firebase *ref = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/shake-lists"];
+    
+    Firebase *postRef = [ref childByAppendingPath:userName];
+    Firebase *post1Ref = [postRef childByAutoId];
+    
+    [post1Ref setValue:dict withCompletionBlock:^(NSError *error, Firebase *ref) {
+        
+        if (error) {
+            [self.navigationController.view makeToast:@"Data could not be saved."];
+            
+        } else {
+            [self.navigationController.view makeToast:@"Data saved successfully."];
+            
+            // Save the saved data to MyShakeList.
+            NSMutableArray *myShakeListMutableAry = [NSMutableArray array];
+            
+            NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"];
+            
+            for (NSDictionary *dict in prevMyShakeListMutableAry) {
+                [myShakeListMutableAry addObject:dict];
+            }
+            
+            [dict setValue:userName forKey:@"username"];
+            [myShakeListMutableAry addObject:dict];
+            
+            // Add the selected shake list to my shake list.
+            [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:@"MY_SHAKE_LIST"];
+            
+            // Push view controller.
+            [self performSelector:@selector(pushViewController) withObject:nil afterDelay:0.f];
+            
+        }
+    }];
+}
+
+// Change the content of the selected shakelist.
+- (void)changeShakeList:(NSMutableDictionary *) changedDict {
+    
+    Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/shake-lists"];
+    Firebase *ref = [fb childByAppendingPath:userName];
+    
+    NSMutableDictionary *selectedDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SELECTED_SHAKE_KEY"] mutableCopy];
+
+    NSString *selTitle = [selectedDict objectForKey:@"title"];
+    NSMutableArray *selPhraseArray = [selectedDict objectForKey:@"phrases"];
+    NSInteger phrase_count = selPhraseArray.count;
+    
+    self.loadingIndicator.hidden = NO;
+    self.navigationController.title = @"Change ShakeList";
+    
+    [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        
+        for ( FDataSnapshot *child in snapshot.children) {
+            
+            NSLog(@"child key : %@", child.key);
+            self.loadingIndicator.hidden = YES;
+            
+            NSDictionary *childDict = child.value; //or craft an object instead of dict
+            NSString *dictTitle = [childDict objectForKey:@"title"];
+            NSMutableArray *dictPhraseArray = [childDict objectForKey:@"phrases"];
+            
+            if ([dictTitle isEqualToString:selTitle] && dictPhraseArray.count == phrase_count) {
+                
+                Firebase *childRef = [ref childByAppendingPath:child.key];
+                [childRef updateChildValues:changedDict withCompletionBlock:^(NSError *error, Firebase *ref) {
+                    
+                    if (error) {
+                        [self.navigationController.view makeToast:@"Data could not be changed."];
+                        
+                    } else {
+                        [self.navigationController.view makeToast:@"Data changed successfully."];
+                        
+                        NSMutableArray *prevShakeList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"] mutableCopy];
+                        for (int i = 0; i < prevShakeList.count; i++) {
+                            NSMutableDictionary *prevDict = [prevShakeList objectAtIndex:i];
+                            if ([prevDict isEqualToDictionary:selectedDict]) {
+                                [changedDict setValue:userName forKey:@"username"];
+                                [prevShakeList replaceObjectAtIndex:i withObject:changedDict];
+                                
+                                [[NSUserDefaults standardUserDefaults] setObject:prevShakeList forKey:@"MY_SHAKE_LIST"];
+                                
+                                break;
+                            }
+                        }
+                        
+                        [self pushViewController];
+                    }
+                }];
+                
+                break;
+            }
+            
+        }
+    }];
 }
 
 // Push this viewcontroller after save the data.
@@ -214,6 +338,9 @@
     
     cell.positionLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row + 1];
     cell.phraseText.delegate = self;
+    if (self.phraseArray.count > indexPath.row) {
+        cell.phraseText.text = [self.phraseArray objectAtIndex:indexPath.row];
+    }
     cell.phraseText.tag = indexPath.row;
     
     return cell;

@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *phraseSelectionLabel;
 @property (weak, nonatomic) IBOutlet UITableView *phraseTableView;
 @property (nonatomic, strong) NSArray* phraseArray;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *rightBarItem;
 
 - (IBAction)downloadShakeList:(id)sender;
 
 @end
-
