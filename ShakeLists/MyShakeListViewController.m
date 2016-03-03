@@ -25,6 +25,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    
 //    [self.view bringSubviewToFront:self.shakeListTableView];
     self.loadingIndicator.hidden = NO;
     list_count = 0;

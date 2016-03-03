@@ -154,8 +154,8 @@
                                 for (NSString *tagStr in tagArray) {
                                     
                                     if (rating_checked) {
-                                        if ([tagStr isEqualToString:self.tagTextField.text]
-                                            && [titleStr isEqualToString:self.titleTextField.text]
+                                        if ([tagStr rangeOfString:self.tagTextField.text].location != NSNotFound
+                                            && [titleStr rangeOfString:self.titleTextField.text].location != NSNotFound
                                             && [[dict objectForKey:@"nfsw"] intValue] == nfsw_checked
                                             && [[dict objectForKey:@"g-rated"] intValue] == g_rated_checked) {
                                             
@@ -165,8 +165,8 @@
                                         }
                                         
                                     } else {
-                                        if ([tagStr isEqualToString:self.tagTextField.text]
-                                            && [titleStr isEqualToString:self.titleTextField.text]) {
+                                        if ([tagStr rangeOfString:self.tagTextField.text].location != NSNotFound
+                                            && [titleStr rangeOfString:self.titleTextField.text].location != NSNotFound) {
                                             
                                             [dict setValue:child.key forKey:@"username"];
                                             [self.searchResultMutableArray addObject:dict];
@@ -179,8 +179,7 @@
                             case 1:
                                 
                                 if (rating_checked) {
-                                    if ([titleStr isEqualToString:self.titleTextField.text]
-                                        && [titleStr isEqualToString:self.titleTextField.text]
+                                    if ([titleStr rangeOfString:self.titleTextField.text].location != NSNotFound
                                         && [[dict objectForKey:@"nfsw"] intValue] == nfsw_checked
                                         && [[dict objectForKey:@"g-rated"] intValue] == g_rated_checked) {
                                         
@@ -189,7 +188,7 @@
                                     }
 
                                 } else {
-                                    if ([titleStr isEqualToString:self.titleTextField.text]) {
+                                    if ([titleStr rangeOfString:self.titleTextField.text].location != NSNotFound) {
                                         
                                         [dict setValue:child.key forKey:@"username"];
                                         [self.searchResultMutableArray addObject:dict];
@@ -201,7 +200,7 @@
                                 for (NSString *tagStr in tagArray) {
                                     
                                     if (rating_checked) {
-                                        if ([tagStr isEqualToString:self.tagTextField.text]
+                                        if ([tagStr rangeOfString:self.tagTextField.text].location != NSNotFound
                                             && [[dict objectForKey:@"nfsw"] intValue] == nfsw_checked
                                             && [[dict objectForKey:@"g-rated"] intValue] == g_rated_checked) {
                                             
@@ -210,7 +209,7 @@
                                             break;
                                         }
                                     } else {
-                                        if ([tagStr isEqualToString:self.tagTextField.text]) {
+                                        if ([tagStr rangeOfString:self.tagTextField.text].location != NSNotFound) {
                                             
                                             [dict setValue:child.key forKey:@"username"];
                                             [self.searchResultMutableArray addObject:dict];

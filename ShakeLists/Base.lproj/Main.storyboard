@@ -780,7 +780,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1917" y="572"/>
+            <point key="canvasLocation" x="1950" y="572"/>
         </scene>
         <!--My ShakeLists-->
         <scene sceneID="Cgs-ME-cuh">
@@ -1136,7 +1136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mg6-Bp-n68" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183.5" y="572"/>
+            <point key="canvasLocation" x="1228.5" y="572"/>
         </scene>
         <!--Email Register View Controller-->
         <scene sceneID="RGu-eX-jbi">
@@ -1462,7 +1462,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t0w-Si-gRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="496.5" y="1275"/>
+            <point key="canvasLocation" x="496.5" y="1285"/>
         </scene>
         <!--Search ShakeList-->
         <scene sceneID="itB-db-1BU">
@@ -2054,7 +2054,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aax-gE-YYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1183.5" y="1285"/>
+            <point key="canvasLocation" x="1228.5" y="1285"/>
         </scene>
         <!--Shake Preview-->
         <scene sceneID="M9C-eH-6Py">
@@ -2305,7 +2305,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6d5-aY-NKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959" y="1285"/>
+            <point key="canvasLocation" x="1950" y="1285"/>
         </scene>
         <!--Email Login View Controller-->
         <scene sceneID="o1d-iK-gS0">
@@ -2895,7 +2895,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLj-1T-SyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-205.5" y="572"/>
+            <point key="canvasLocation" x="-226.5" y="572"/>
         </scene>
     </scenes>
     <resources>
@@ -2914,6 +2914,6 @@
         <image name="user_icon.png" width="626" height="626"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qPq-Gb-0EW"/>
+        <segue reference="EG2-17-swc"/>
     </inferredMetricsTieBreakers>
 </document>
