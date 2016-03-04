@@ -7,6 +7,8 @@
 //
 
 #import "EmailLoginViewController.h"
+#import <Firebase/Firebase.h>
+#import "UIView+Toast.h"
 
 @interface EmailLoginViewController () {
 }
@@ -60,30 +62,82 @@
 }
 
 - (IBAction)loginUser:(id)sender {
+    
     if ([self.userNameTextView.text isEqualToString:@""]) {
-        UIAlertController * alert = [UIAlertController
-                                     alertControllerWithTitle:@"Input Error"
-                                     message:@"Please fill out the UserName Field."
-                                     preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction* okButton = [UIAlertAction
-                                   actionWithTitle:@"OK"
-                                   style:UIAlertActionStyleDefault
-                                   handler:^(UIAlertAction * action)
-                                   {
-                                       //Handel your yes please button action here
-                                   }];
-        [alert addAction:okButton];
-        
-        [self presentViewController:alert animated:YES completion:nil];
-        
+        [self showAlert:@"Please fill out UserName field."];
         [self.userNameTextView becomeFirstResponder];
+        
+    } else if ([self.passwordTextView.text isEqualToString:@""]) {
+        
+        [self showAlert:@"Plese fill out Password field."];
+        [self.passwordTextView becomeFirstResponder];
         
     } else {
         
-        [[NSUserDefaults standardUserDefaults] setObject:self.userNameTextView.text forKey:@"USER_NAME_KEY"];
-        NSLog(@"UserName : %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"]);
+        Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com"];
+        [self setLoadingIndicatorStatus:NO];
+        
+        [fb authUser:self.userNameTextView.text password:self.passwordTextView.text withCompletionBlock:
+         ^(NSError *error, FAuthData *authData) {
+             
+             if (error) {
+                 NSLog(@"login result : %@", error);
+                 [self.view makeToast:[error.userInfo objectForKey:@"NSLocalizedDescription"]];
+                 [self setLoadingIndicatorStatus:YES];
+                 
+             } else {
+                 NSLog(@"Login Result : %@", authData);
+                 
+                 Firebase *accountRef = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/accounts"];
+                 Firebase *uidRef = [accountRef childByAppendingPath:authData.uid];
+                 
+                 [uidRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                     
+                     NSDictionary *userDict = snapshot.value;
+                     
+                     [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"username"]
+                                                               forKey:@"USER_NAME_KEY"];
+                     NSLog(@"UserName : %@", [userDict objectForKey:@"username"]);
+                     
+                     [self setLoadingIndicatorStatus:YES];
+                     
+                     UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+                     [self.navigationController pushViewController:controller animated:YES];
+
+                 }];
+             }
+         }];
     }
+}
+
+// Set the loading indicator when login.
+- (void) setLoadingIndicatorStatus:(BOOL)flag {
+    
+    self.loadingIndicator.hidden = flag;
+    self.userNameTextView.enabled = flag;
+    self.passwordTextView.enabled = flag;
+    self.loginButton.enabled = flag;
+    
+}
+
+- (void)showAlert:(NSString *)messageStr {
+    
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Input Error"
+                                 message:messageStr
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* okButton = [UIAlertAction
+                               actionWithTitle:@"OK"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                   //Handel your yes please button action here
+                               }];
+    [alert addAction:okButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

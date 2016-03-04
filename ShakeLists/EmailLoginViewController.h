@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *userNameTextView;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 - (IBAction)loginUser:(id)sender;
     @end
