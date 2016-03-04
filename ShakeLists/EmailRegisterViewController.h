@@ -14,6 +14,8 @@
     __weak IBOutlet UITextField *emailAddressTextField;
     __weak IBOutlet UITextField *passwordTextField;
     __weak IBOutlet UITextField *confirmPasswordField;
+    __weak IBOutlet UIActivityIndicatorView *loadingIndicator;
+    __weak IBOutlet UIButton *registerButton;
     
 }
 

@@ -226,7 +226,6 @@
 				4E34D00A1C7AF1B600CE563A /* AppDelegate.m */,
 				4E395C1E1C86E1F100CD0584 /* ViewController */,
 				4E395C1F1C86E27300CD0584 /* EAIntroView */,
-				4E14CA4A1C81DC90003AF385 /* PreviewModal */,
 				4E6721B11C806F7A004402DD /* LMComBox */,
 				4E673B071C7DC31700511E79 /* TagFieldClasses */,
 				4E35639A1C7CAD8900512AD4 /* TableViewCell */,
@@ -322,18 +321,11 @@
 		4E395C1E1C86E1F100CD0584 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4E34D00C1C7AF1B600CE563A /* NewShakeListViewController.h */,
-				4E34D00D1C7AF1B600CE563A /* NewShakeListViewController.m */,
-				4E673AFC1C7D8A0900511E79 /* MyShakeListViewController.h */,
-				4E673AFD1C7D8A0900511E79 /* MyShakeListViewController.m */,
-				4E6721BC1C8099CB004402DD /* SearchShakeListViewController.h */,
-				4E6721BD1C8099CB004402DD /* SearchShakeListViewController.m */,
-				4E73E5B01C8173F5002A5E5F /* EmailLoginViewController.h */,
-				4E73E5B11C8173F5002A5E5F /* EmailLoginViewController.m */,
-				4EA9C2871C872EE800FEEAE9 /* LoginHomeViewController.h */,
-				4EA9C2881C872EE800FEEAE9 /* LoginHomeViewController.m */,
-				4EA9C28C1C8737F100FEEAE9 /* EmailRegisterViewController.h */,
-				4EA9C28D1C8737F100FEEAE9 /* EmailRegisterViewController.m */,
+				4EBCB6381C88B1E50031F68F /* HomeView */,
+				4EBCB6371C88B1500031F68F /* LoginView */,
+				4EBCB63A1C88B20C0031F68F /* CreatingView */,
+				4EBCB6391C88B1FC0031F68F /* SearchView */,
+				4E14CA4A1C81DC90003AF385 /* PreviewModal */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -371,6 +363,46 @@
 			);
 			name = TagFieldClasses;
 			path = TextFieldClasses;
+			sourceTree = "<group>";
+		};
+		4EBCB6371C88B1500031F68F /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				4E73E5B01C8173F5002A5E5F /* EmailLoginViewController.h */,
+				4E73E5B11C8173F5002A5E5F /* EmailLoginViewController.m */,
+				4EA9C2871C872EE800FEEAE9 /* LoginHomeViewController.h */,
+				4EA9C2881C872EE800FEEAE9 /* LoginHomeViewController.m */,
+				4EA9C28C1C8737F100FEEAE9 /* EmailRegisterViewController.h */,
+				4EA9C28D1C8737F100FEEAE9 /* EmailRegisterViewController.m */,
+			);
+			name = LoginView;
+			sourceTree = "<group>";
+		};
+		4EBCB6381C88B1E50031F68F /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				4E673AFC1C7D8A0900511E79 /* MyShakeListViewController.h */,
+				4E673AFD1C7D8A0900511E79 /* MyShakeListViewController.m */,
+			);
+			name = HomeView;
+			sourceTree = "<group>";
+		};
+		4EBCB6391C88B1FC0031F68F /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				4E6721BC1C8099CB004402DD /* SearchShakeListViewController.h */,
+				4E6721BD1C8099CB004402DD /* SearchShakeListViewController.m */,
+			);
+			name = SearchView;
+			sourceTree = "<group>";
+		};
+		4EBCB63A1C88B20C0031F68F /* CreatingView */ = {
+			isa = PBXGroup;
+			children = (
+				4E34D00C1C7AF1B600CE563A /* NewShakeListViewController.h */,
+				4E34D00D1C7AF1B600CE563A /* NewShakeListViewController.m */,
+			);
+			name = CreatingView;
 			sourceTree = "<group>";
 		};
 		4EBD0D3D1C7C0F6000D5B58F /* Resources */ = {
