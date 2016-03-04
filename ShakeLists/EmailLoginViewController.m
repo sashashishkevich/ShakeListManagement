@@ -63,6 +63,9 @@
 
 - (IBAction)loginUser:(id)sender {
     
+//    UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+//    [self.navigationController pushViewController:controller animated:YES];
+    
     if ([self.userNameTextView.text isEqualToString:@""]) {
         
         [self showAlert:@"Please fill out UserName field."];

@@ -71,8 +71,6 @@
             [self.listMutableArray sortUsingDescriptors: arrayOfDescriptors];
             self.loadingIndicator.hidden = YES;
             
-            NSLog(@"MyShakeList array : %@", self.listMutableArray);
-            
             list_count = self.listMutableArray.count;
             
             // Reload the shake list table.
@@ -86,7 +84,6 @@
     } else {
         self.listMutableArray = myShakeMutableAry;
         self.loadingIndicator.hidden = YES;
-        NSLog(@"MyShakeList array : %@", self.listMutableArray);
         
         list_count = self.listMutableArray.count;
         
@@ -188,7 +185,16 @@
  }
  */
 
-- (IBAction)testSetting:(id)sender {
+- (IBAction)menuClicked:(id)sender {
+    
+    // Dismiss keyboard (optional)
+    //
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    
+    // Present the view controller
+    //
+    [self.frostedViewController presentMenuViewController];
 }
 
 - (IBAction)createNewShakeList:(id)sender {

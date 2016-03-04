@@ -25,9 +25,15 @@
     
     rootView = self.navigationController.view;
     
-    // Set the intro view
-//    [self setIntroView];
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
+    if (username == nil) {
+        // Set the intro view
+        [self setIntroView];
     
+    } else {
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

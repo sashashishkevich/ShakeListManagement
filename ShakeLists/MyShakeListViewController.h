@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LMComBoxView.h"
+#import "REFrostedViewController.h"
 
 @interface MyShakeListViewController : UIViewController<LMComBoxViewDelegate> {
     
@@ -21,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sortByLabel;
 @property (nonatomic, strong) NSMutableArray *listMutableArray;
 
-- (IBAction)testSetting:(id)sender;
+- (IBAction)menuClicked:(id)sender;
 - (IBAction)createNewShakeList:(id)sender;
 
 @end

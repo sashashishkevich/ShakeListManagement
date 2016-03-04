@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShakeLists/NewShakeListViewController.m"
-            timestampString = "478717294.920561"
+            filePath = "ShakeLists/EmailRegisterViewController.m"
+            timestampString = "478775687.272773"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "-changeShakeList:"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-registerAccount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShakeLists/EmailRegisterViewController.m"
-            timestampString = "478775687.272773"
+            filePath = "ShakeLists/NewShakeListViewController.m"
+            timestampString = "478801458.055158"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-registerAccount:"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-createNewShakeList:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
