@@ -13,6 +13,7 @@
 #import "MyNavigationViewController.h"
 #import <Firebase/Firebase.h>
 #import "LoginHomeViewController.h"
+#import "Define.h"
 
 @interface MenuViewController ()
 
@@ -62,13 +63,12 @@
         NSLog(@"Logout");
         
         // Logout the account.
-        Firebase *ref = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/accounts"];
-        [ref unauth];
+        [FB_REF unauth];
         
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"USER_NAME_KEY"];
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"MY_SHAKE_LIST"];
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SELECTED_SHAKE_KEY"];
-        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"SHAKE_EDIT_KEY"];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:USER_NAME_KEY];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:MY_SHAKE_LIST];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:SELECTED_SHAKE_KEY];
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:SHAKE_EDIT_KEY];
 
         LoginHomeViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"loginHomeController"];
         [self.navigationController pushViewController:homeViewController animated:YES];
@@ -111,7 +111,7 @@
     }
     
     if (indexPath.section == 0) {
-        NSArray *titles = @[@"Home", @"My Activity", @"My ShakeLists", @"Ball Pairing", @"Settings", @"Find Friends", @"About", @"Help"];
+        NSArray *titles = MENU_TITLES;
         cell.textLabel.text = titles[indexPath.row];
     } else {
         cell.textLabel.text = @"Logout";

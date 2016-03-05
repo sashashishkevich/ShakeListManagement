@@ -9,6 +9,7 @@
 #import "EmailLoginViewController.h"
 #import <Firebase/Firebase.h>
 #import "UIView+Toast.h"
+#import "Define.h"
 
 @interface EmailLoginViewController () {
 }
@@ -24,19 +25,11 @@
     // Hide navigation bar.
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 
-    NSString* userNameStr = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
+    NSString* userNameStr = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
     self.view.hidden = NO;
     
     self.userNameTextView.delegate = self;
     self.passwordTextView.delegate = self;
-
-    if (userNameStr != nil) {
-
-//        self.view.hidden = YES;
-//        UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
-//        [self.navigationController pushViewController:controller animated:YES];
-    }
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -78,10 +71,9 @@
         
     } else {
         
-        Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com"];
         [self setLoadingIndicatorStatus:NO];
         
-        [fb authUser:self.userNameTextView.text password:self.passwordTextView.text withCompletionBlock:
+        [FB_REF authUser:self.userNameTextView.text password:self.passwordTextView.text withCompletionBlock:
          ^(NSError *error, FAuthData *authData) {
              
              if (error) {
@@ -92,7 +84,8 @@
              } else {
                  NSLog(@"Login Result : %@", authData);
                  
-                 Firebase *accountRef = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/accounts"];
+                 
+                 Firebase *accountRef = [FB_REF childByAppendingPath:@"accounts"];
                  Firebase *uidRef = [accountRef childByAppendingPath:authData.uid];
                  
                  [uidRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -100,7 +93,7 @@
                      NSDictionary *userDict = snapshot.value;
                      
                      [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"username"]
-                                                               forKey:@"USER_NAME_KEY"];
+                                                                forKey:USER_NAME_KEY];
                      NSLog(@"UserName : %@", [userDict objectForKey:@"username"]);
                      
                      [self setLoadingIndicatorStatus:YES];

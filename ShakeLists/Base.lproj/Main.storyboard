@@ -786,6 +786,7 @@
                         <outlet property="phraseSelectionSegment" destination="dea-Re-Atk" id="c6i-Iq-NMh"/>
                         <outlet property="phraseTableView" destination="CCM-d5-iSg" id="X1J-gb-B9e"/>
                         <outlet property="phrasesLabel" destination="jw5-rR-iSh" id="xSn-BB-DZU"/>
+                        <outlet property="saveBarButtonItem" destination="S8T-kH-ERc" id="nvS-eF-vj3"/>
                         <outlet property="shakeListTitleTextField" destination="2kx-r7-i1b" id="ShJ-UT-a6M"/>
                         <outlet property="titleNavigationItem" destination="Gyi-Z1-ab3" id="FqI-j1-onq"/>
                         <outlet property="tokenField" destination="hIj-a5-ZFK" id="Zek-Sg-HOD"/>
@@ -833,29 +834,6 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwF-1G-D5c">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="162" id="IFT-BW-sEd"/>
-                                            <constraint firstAttribute="height" constant="162" id="hvE-bv-HNe"/>
-                                            <constraint firstAttribute="width" constant="101" id="seg-uH-htn"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="IFT-BW-sEd"/>
-                                                <exclude reference="hvE-bv-HNe"/>
-                                                <exclude reference="seg-uH-htn"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="widthClass=compact">
-                                            <mask key="constraints">
-                                                <exclude reference="IFT-BW-sEd"/>
-                                                <include reference="hvE-bv-HNe"/>
-                                                <include reference="seg-uH-htn"/>
-                                            </mask>
-                                        </variation>
-                                    </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KT3-fN-lVN">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -968,6 +946,26 @@
                                             <outlet property="delegate" destination="8uD-fj-vC1" id="wJv-Ag-lcG"/>
                                         </connections>
                                     </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mwF-1G-D5c">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="162" id="hvE-bv-HNe"/>
+                                            <constraint firstAttribute="width" constant="101" id="seg-uH-htn"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="hvE-bv-HNe"/>
+                                                <exclude reference="seg-uH-htn"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="hvE-bv-HNe"/>
+                                                <include reference="seg-uH-htn"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -984,8 +982,8 @@
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="PFx-e9-LDM"/>
-                                        <exclude reference="mwF-1G-D5c"/>
                                         <exclude reference="KT3-fN-lVN"/>
+                                        <exclude reference="mwF-1G-D5c"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="8zf-n0-6fw"/>
@@ -1002,8 +1000,8 @@
                                 <variation key="widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="PFx-e9-LDM"/>
-                                        <include reference="mwF-1G-D5c"/>
                                         <include reference="KT3-fN-lVN"/>
+                                        <include reference="mwF-1G-D5c"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="8zf-n0-6fw"/>
@@ -2753,7 +2751,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5M-AO-ceD">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5M-AO-ceD">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtq-ke-7bF">
@@ -2772,6 +2770,9 @@
                                                 <include reference="YV0-Iw-ZBE"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="loginWithTwitter:" destination="spa-op-2Mb" eventType="touchUpInside" id="jLk-jZ-aJo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tef-Pk-oz2">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -2814,6 +2815,9 @@
                                                 <include reference="xOR-ZY-wcR"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="loginWithFacebook:" destination="spa-op-2Mb" eventType="touchUpInside" id="xEG-Z8-8CP"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2879,6 +2883,13 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-ZS-V0W">
+                                <rect key="frame" x="-10" y="-10" width="20" height="20"/>
+                                <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="182" y="281" width="37" height="37"/>
+                                </variation>
+                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rj3-6p-4Ae">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <subviews>
@@ -2888,7 +2899,7 @@
                                             <constraint firstAttribute="height" constant="60" id="fKn-Re-I4A"/>
                                             <constraint firstAttribute="width" constant="174" id="ylr-b9-cJt"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="35"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="35"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -2909,7 +2920,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="qJ5-iR-Gni"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
@@ -2978,6 +2989,7 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="C5M-AO-ceD"/>
+                                <exclude reference="Cge-ZS-V0W"/>
                                 <exclude reference="rj3-6p-4Ae"/>
                             </mask>
                             <mask key="constraints">
@@ -2995,6 +3007,7 @@
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="C5M-AO-ceD"/>
+                                <include reference="Cge-ZS-V0W"/>
                                 <include reference="rj3-6p-4Ae"/>
                             </mask>
                             <mask key="constraints">
@@ -3011,6 +3024,15 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="e44-Qi-adI"/>
+                    <connections>
+                        <outlet property="emailButton" destination="ms5-u2-2XC" id="HK6-dO-vMR"/>
+                        <outlet property="facebookButton" destination="v9p-N2-4fK" id="hFH-zC-FeO"/>
+                        <outlet property="loadingIndicator" destination="Cge-ZS-V0W" id="hdA-bM-oWh"/>
+                        <outlet property="tutorialButton" destination="Tef-Pk-oz2" id="YMx-L6-uOy"/>
+                        <outlet property="twitterButton" destination="vtq-ke-7bF" id="Yy9-NQ-zgb"/>
+                        <outlet property="view1" destination="C5M-AO-ceD" id="77Y-4A-Y9i"/>
+                        <outlet property="view2" destination="rj3-6p-4Ae" id="XNh-dZ-GDp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLj-1T-SyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -10,6 +10,7 @@
 #import "PhraseTableViewCell.h"
 #import "MyShakeListViewController.h"
 #import <Firebase/Firebase.h>
+#import "Define.h"
 
 #import "ZFTokenField.h"
 #import "UIView+Toast.h"
@@ -41,13 +42,13 @@
     cellNumber = 1;
     nfsw_checked = NO;
     g_rated_checked = NO;
-    userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
+    userName = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SHAKE_EDIT_KEY"] isEqualToString:@"update"]) {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:SHAKE_EDIT_KEY] isEqualToString:@"update"]) {
         
         self.titleNavigationItem.title = @"Change ShakeList";
         
-        NSDictionary *selectedDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"SELECTED_SHAKE_KEY"];
+        NSDictionary *selectedDict = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_SHAKE_KEY];
         
         [self.shakeListTitleTextField setText:[selectedDict objectForKey:@"title"]];
         
@@ -117,7 +118,7 @@
         [shakeListData setObject:self.phraseArray
                           forKey:@"phrases"];
 
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"SHAKE_EDIT_KEY"] isEqualToString:@"create"]) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:SHAKE_EDIT_KEY] isEqualToString:@"create"]) {
             
             [self addShakeList:shakeListData];
             
@@ -162,10 +163,10 @@
 - (void)addShakeList:(NSMutableDictionary *) dict {
     
     NSLog(@"shakelistdata result : \n %@", dict);
+    [self setUploadingStatus:NO];
     
     // Connect to firebase.
-    Firebase *ref = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/shake-lists"];
-    
+    Firebase *ref = [FB_REF childByAppendingPath:@"shake-lists"];
     Firebase *postRef = [ref childByAppendingPath:userName];
     Firebase *post1Ref = [postRef childByAutoId];
     
@@ -173,6 +174,7 @@
         
         if (error) {
             [self.navigationController.view makeToast:@"Data could not be saved."];
+            [self setUploadingStatus:YES];
             
         } else {
             [self.navigationController.view makeToast:@"Data saved successfully."];
@@ -180,7 +182,7 @@
             // Save the saved data to MyShakeList.
             NSMutableArray *myShakeListMutableAry = [NSMutableArray array];
             
-            NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"];
+            NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:MY_SHAKE_LIST];
             
             for (NSDictionary *dict in prevMyShakeListMutableAry) {
                 [myShakeListMutableAry addObject:dict];
@@ -190,10 +192,11 @@
             [myShakeListMutableAry addObject:dict];
             
             // Add the selected shake list to my shake list.
-            [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:@"MY_SHAKE_LIST"];
+            [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:MY_SHAKE_LIST];
             
             // Push view controller.
             [self performSelector:@selector(pushViewController) withObject:nil afterDelay:0.f];
+            [self setUploadingStatus:YES];
             
         }
     }];
@@ -202,16 +205,16 @@
 // Change the content of the selected shakelist.
 - (void)changeShakeList:(NSMutableDictionary *) changedDict {
     
-    Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/shake-lists"];
+    Firebase *fb = [FB_REF childByAppendingPath:@"shake-lists"];
     Firebase *ref = [fb childByAppendingPath:userName];
     
-    NSMutableDictionary *selectedDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"SELECTED_SHAKE_KEY"] mutableCopy];
+    NSMutableDictionary *selectedDict = [[[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_SHAKE_KEY] mutableCopy];
 
     NSString *selTitle = [selectedDict objectForKey:@"title"];
     NSMutableArray *selPhraseArray = [selectedDict objectForKey:@"phrases"];
     NSInteger phrase_count = selPhraseArray.count;
     
-    self.loadingIndicator.hidden = NO;
+    [self setUploadingStatus:NO];
     self.navigationController.title = @"Change ShakeList";
     
     [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -219,7 +222,7 @@
         for ( FDataSnapshot *child in snapshot.children) {
             
             NSLog(@"child key : %@", child.key);
-            self.loadingIndicator.hidden = YES;
+            [self setUploadingStatus:YES];
             
             NSDictionary *childDict = child.value; //or craft an object instead of dict
             NSString *dictTitle = [childDict objectForKey:@"title"];
@@ -236,14 +239,14 @@
                     } else {
                         [self.navigationController.view makeToast:@"Data changed successfully."];
                         
-                        NSMutableArray *prevShakeList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"] mutableCopy];
+                        NSMutableArray *prevShakeList = [[[NSUserDefaults standardUserDefaults] objectForKey:MY_SHAKE_LIST] mutableCopy];
                         for (int i = 0; i < prevShakeList.count; i++) {
                             NSMutableDictionary *prevDict = [prevShakeList objectAtIndex:i];
                             if ([prevDict isEqualToDictionary:selectedDict]) {
                                 [changedDict setValue:userName forKey:@"username"];
                                 [prevShakeList replaceObjectAtIndex:i withObject:changedDict];
                                 
-                                [[NSUserDefaults standardUserDefaults] setObject:prevShakeList forKey:@"MY_SHAKE_LIST"];
+                                [[NSUserDefaults standardUserDefaults] setObject:prevShakeList forKey:MY_SHAKE_LIST];
                                 
                                 break;
                             }
@@ -258,6 +261,18 @@
             
         }
     }];
+}
+
+- (void)setUploadingStatus:(BOOL) flag {
+    self.loadingIndicator.hidden = flag;
+    self.shakeListTitleTextField.enabled = flag;
+    self.listSaveTypeSegment.enabled = flag;
+    self.nfswCheckbox.enabled = flag;
+    self.gRatedCheckbox.enabled = flag;
+    self.tokenField.enabled = flag;
+    self.phraseSelectionSegment.enabled = flag;
+    self.phraseTableView.editing = flag;
+    self.saveBarButtonItem.enabled = flag;
 }
 
 // Push this viewcontroller after save the data.

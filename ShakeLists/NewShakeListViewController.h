@@ -16,6 +16,7 @@
     BOOL g_rated_checked;
 }
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveBarButtonItem;
 @property (weak, nonatomic) IBOutlet UITableView *phraseTableView;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UITextField *shakeListTitleTextField;

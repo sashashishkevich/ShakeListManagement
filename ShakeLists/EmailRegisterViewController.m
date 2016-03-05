@@ -9,6 +9,7 @@
 #import "EmailRegisterViewController.h"
 #import "UIView+Toast.h"
 #import <Firebase/Firebase.h>
+#import "Define.h"
 
 @interface EmailRegisterViewController ()
 
@@ -68,7 +69,7 @@
     } else {
         
         // test the duplicate account.
-        Firebase *accountRef = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/accounts"];
+        Firebase *accountRef = [FB_REF childByAppendingPath:@"accounts"];
         [self setEnableEditing:NO];
         
         [accountRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -98,8 +99,7 @@
             if (!dup_flag) {
 
                 // Create a new account.
-                Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com"];
-                [fb createUser:emailAddressTextField.text password:passwordTextField.text withValueCompletionBlock:
+                [FB_REF createUser:emailAddressTextField.text password:passwordTextField.text withValueCompletionBlock:
                  ^(NSError *error, NSDictionary *result) {
                     
                     if (error) {
@@ -115,7 +115,7 @@
                                                      emailAddressTextField.text, @"email",
                                                      passwordTextField.text, @"password", nil];
                         
-                        Firebase *accountRef = [[Firebase alloc] initWithUrl:@"https://shakelist1.firebaseio.com/accounts"];
+                        Firebase *accountRef = [FB_REF childByAppendingPath:@"accounts"];
                         Firebase *uidRef = [accountRef childByAppendingPath:[result objectForKey:@"uid"]];
                         [uidRef setValue:accountDict withCompletionBlock:^(NSError *error, Firebase *ref) {
                             

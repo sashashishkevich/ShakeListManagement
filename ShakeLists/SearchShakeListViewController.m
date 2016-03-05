@@ -11,6 +11,7 @@
 #import "PreviewModalViewController.h"
 #import "UIView+Toast.h"
 #import <Firebase/Firebase.h>
+#import "Define.h"
 
 @interface SearchShakeListViewController ()
 @end
@@ -28,7 +29,7 @@
     self.ratingView.hidden = YES;
     self.loadingIndicator.hidden = YES;
     
-    userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
+    userName = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
     
 }
 
@@ -124,7 +125,7 @@
         }
         
         // Get the sakelist data from the firebse.
-        Firebase *ref = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/shake-lists"];
+        Firebase *ref = [FB_REF childByAppendingPath:@"shake-lists"];
         
         [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             // do some stuff once
@@ -292,7 +293,7 @@
 {
     NSLog(@"cell index : %ld", indexPath.row);
     NSMutableDictionary *selectedDict = [self.searchResultMutableArray objectAtIndex:indexPath.row];
-    [[NSUserDefaults standardUserDefaults] setObject:selectedDict forKey:@"SELECTED_SHAKE_KEY"];
+    [[NSUserDefaults standardUserDefaults] setObject:selectedDict forKey:SELECTED_SHAKE_KEY];
     
     UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"PreviewModalViewController"];
     [self.navigationController pushViewController:controller animated:YES];

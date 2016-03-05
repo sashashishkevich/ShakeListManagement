@@ -7,6 +7,9 @@
 //
 
 #import "LoginHomeViewController.h"
+#import <Firebase/Firebase.h>
+#import "UIView+Toast.h"
+#import "Define.h"
 
 @interface LoginHomeViewController () {
     UIView *rootView;
@@ -25,15 +28,16 @@
     
     rootView = self.navigationController.view;
     
-    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
-    if (username == nil) {
-        // Set the intro view
-        [self setIntroView];
-    
-    } else {
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
+    if (username != nil && FB_REF != NULL) {
         UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
         [self.navigationController pushViewController:viewController animated:YES];
+        
+    } else {
+        [self setIntroView];
     }
+
+    NSLog(@"firebase ref result : %@", FB_REF.authData);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,27 +47,27 @@
 
 - (void)setIntroView {
     EAIntroPage *page1 = [EAIntroPage page];
-    page1.title = @"Welcome to ....";
+    page1.title = PAGE_1_TITLE;
     page1.titleColor = [UIColor whiteColor];
-    page1.desc = @"Pellentesque vel aliquet sem, at suscipit nisi. Donec at nibh. Curabitur placerat mi eu mauris pellentesque conque.";
+    page1.desc = PAGE_1_DESC;
     page1.titlePositionY = self.view.frame.size.height/3;
     page1.descPositionY = page1.titlePositionY-50;
     
     EAIntroPage *page2 = [EAIntroPage page];
-    page2.title = @"Make A List!";
-    page2.desc = @"Creating a new list is simple...";
+    page2.title = PAGE_2_TITLE;
+    page2.desc = PAGE_2_DESC;
     page2.titlePositionY = self.view.frame.size.height/3;
     page2.descPositionY = page1.titlePositionY-50;
     
     EAIntroPage *page3 = [EAIntroPage page];
-    page3.title = @"Take A List!";
-    page3.desc =@"It's a big world! See what others are shaking!";
+    page3.title = PAGE_3_TITLE;
+    page3.desc = PAGE_3_DESC;
     page3.titlePositionY = self.view.frame.size.height/3;
     page3.descPositionY = page1.titlePositionY-50;
     
     EAIntroPage *page4 = [EAIntroPage page];
-    page4.title = @"Shake A List!";
-    page4.desc = @"Pair a ... and get shaking!";
+    page4.title = PAGE_4_TITLE;
+    page4.desc = PAGE_4_DESC;
     page4.titlePositionY = self.view.frame.size.height/3;
     page4.descPositionY = page1.titlePositionY-50;
     
@@ -116,5 +120,67 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+// Login with facebook.
+- (IBAction)loginWithFacebook:(id)sender {
+
+    [self setLoadingStatus:NO];
+    
+    FBSDKLoginManager *facebookLogin = [[FBSDKLoginManager alloc] init];
+    
+    [facebookLogin logInWithReadPermissions:@[@"email"]
+                         fromViewController:self
+                                    handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+                                        if (error) {
+                                            NSLog(@"Facebook login failed. Error: %@", error);
+                                            [self.navigationController.view makeToast:@"Facebook login failed."];
+                                            [self setLoadingStatus:YES];
+                                        } else if (result.isCancelled) {
+                                            NSLog(@"Facebook login got cancelled.");
+                                            [self.navigationController.view makeToast:@"Facebook login got cancelled."];
+                                            [self setLoadingStatus:YES];
+                                        } else {
+                                            NSString *accessToken = [[FBSDKAccessToken currentAccessToken] tokenString];
+                                            [FB_REF authWithOAuthProvider:@"facebook" token:accessToken
+                                                   withCompletionBlock:^(NSError *error, FAuthData *authData) {
+                                                       if (error) {
+                                                           NSLog(@"Login failed. %@", error);
+                                                       } else {
+                                                           NSLog(@"Logged in! %@", authData);
+                                                           NSLog(@"UserName : %@", [authData.providerData objectForKey:@"displayName"]);
+                                                           [self.navigationController.view makeToast:@"Logged in successfully!"];
+                                                           [self setLoadingStatus:YES];
+                                                           
+                                                           NSString *userName = [authData.providerData objectForKey:@"displayName"];
+                                                           [[NSUserDefaults standardUserDefaults] setObject:userName forKey:USER_NAME_KEY];
+                                                           
+                                                           UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+                                                           [self.navigationController pushViewController:controller animated:YES];
+                                                       }
+                                                   }];
+                                        }
+                                    }];
+}
+
+// login with Twitter.
+- (IBAction)loginWithTwitter:(id)sender {
+}
+
+- (void)setLoadingStatus:(BOOL) flag {
+    
+    self.loadingIndicator.hidden = flag;
+    self.facebookButton.enabled = flag;
+    self.twitterButton.enabled = flag;
+    self.emailButton.enabled = flag;
+    self.tutorialButton.enabled = flag;
+    
+    if (flag) {
+        self.view1.alpha = 1.0f;
+        self.view2.alpha = 1.0f;
+    } else {
+        self.view1.alpha = .9f;
+        self.view2.alpha = .9f;
+    }
+}
 
 @end

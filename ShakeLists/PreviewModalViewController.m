@@ -9,6 +9,7 @@
 #import "PreviewModalViewController.h"
 #import "MyShakeListViewController.h"
 #import "UIView+Toast.h"
+#import "Define.h"
 
 @interface PreviewModalViewController ()
 
@@ -23,7 +24,7 @@
     [self.view addSubview:toolbarBackground];
     [self.view sendSubviewToBack:toolbarBackground];
     
-    selectedShake = [[NSUserDefaults standardUserDefaults] objectForKey:@"SELECTED_SHAKE_KEY"];
+    selectedShake = [[NSUserDefaults standardUserDefaults] objectForKey:SELECTED_SHAKE_KEY];
     NSLog(@"result : %@", selectedShake);
     
     self.title = [selectedShake objectForKey:@"title"];
@@ -112,7 +113,7 @@
 
     NSMutableArray *myShakeListMutableAry = [NSMutableArray array];
     
-    NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"];
+    NSMutableArray *prevMyShakeListMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:MY_SHAKE_LIST];
 
     for (NSDictionary *dict in prevMyShakeListMutableAry) {
         [myShakeListMutableAry addObject:dict];
@@ -121,7 +122,7 @@
     [myShakeListMutableAry addObject:selectedShake];
     
     // Add the selected shake list to my shake list.
-    [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:@"MY_SHAKE_LIST"];
+    [[NSUserDefaults standardUserDefaults] setObject:myShakeListMutableAry forKey:MY_SHAKE_LIST];
     
     [self.navigationController.view makeToast:@"Downloading Success!!!"];
     

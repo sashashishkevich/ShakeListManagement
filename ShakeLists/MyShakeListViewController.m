@@ -10,6 +10,7 @@
 #import "ShakeListTableViewCell.h"
 #import <Firebase/Firebase.h>
 #import "LMContainsLMComboxScrollView.h"
+#import "Define.h"
 
 @interface MyShakeListViewController ()
 {
@@ -30,7 +31,7 @@
 //    [self.view bringSubviewToFront:self.shakeListTableView];
     self.loadingIndicator.hidden = NO;
     list_count = 0;
-    userName = [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_NAME_KEY"];
+    userName = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
 
     // Set up the sort-by combo box
     NSLog(@"sortby label position : %f", self.view.frame.size.width);
@@ -44,12 +45,12 @@
     [self setUpBgScrollView];
 
     // Get the my shakelist result.
-    NSMutableArray *myShakeMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:@"MY_SHAKE_LIST"];
+    NSMutableArray *myShakeMutableAry = [[NSUserDefaults standardUserDefaults] objectForKey:MY_SHAKE_LIST];
     
     if (myShakeMutableAry == NULL) {
 
         // Get the sakelist data from the firebse.
-        Firebase *fb = [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com/shake-lists"];
+        Firebase *fb = [FB_REF childByAppendingPath:@"shake-lists"];
         Firebase *ref = [fb childByAppendingPath:userName];
         
         [ref observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
@@ -77,7 +78,7 @@
             [self.shakeListTableView reloadData];
 
             // Save the result list to default.
-            [[NSUserDefaults standardUserDefaults] setObject:self.listMutableArray forKey:@"MY_SHAKE_LIST"];
+            [[NSUserDefaults standardUserDefaults] setObject:self.listMutableArray forKey:MY_SHAKE_LIST];
             
         }];
         
@@ -154,11 +155,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[NSUserDefaults standardUserDefaults] setValue:@"update" forKey:@"SHAKE_EDIT_KEY"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"update" forKey:SHAKE_EDIT_KEY];
     
     NSMutableDictionary *selectedDict = [self.listMutableArray objectAtIndex:indexPath.row];
     if ([[selectedDict objectForKey:@"username"] isEqualToString:userName]) {
-        [[NSUserDefaults standardUserDefaults] setObject:selectedDict forKey:@"SELECTED_SHAKE_KEY"];
+        [[NSUserDefaults standardUserDefaults] setObject:selectedDict forKey:SELECTED_SHAKE_KEY];
         
         UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"NewShakeListController"];
         [self.navigationController pushViewController:controller animated:YES];
@@ -198,7 +199,7 @@
 }
 
 - (IBAction)createNewShakeList:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setValue:@"create" forKey:@"SHAKE_EDIT_KEY"];
+    [[NSUserDefaults standardUserDefaults] setValue:@"create" forKey:SHAKE_EDIT_KEY];
 }
 
 @end

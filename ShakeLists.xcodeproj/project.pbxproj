@@ -67,6 +67,9 @@
 		4EBD0D8E1C7CA63800D5B58F /* close_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EBD0D8D1C7CA63800D5B58F /* close_icon.png */; };
 		4EC06B701C7CF62100B26F3D /* create_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC06B6F1C7CF62100B26F3D /* create_btn.png */; };
 		4EC385F41C7D0A7300110B01 /* ShakeListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC385F31C7D0A7300110B01 /* ShakeListTableViewCell.m */; };
+		4ECB9DE41C8AFCAD00339C9C /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECB9DE31C8AFCAD00339C9C /* FBSDKCoreKit.framework */; };
+		4ECB9DE61C8AFCBC00339C9C /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECB9DE51C8AFCBC00339C9C /* FBSDKLoginKit.framework */; };
+		4ECB9DE81C8AFCC400339C9C /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECB9DE71C8AFCC400339C9C /* FBSDKShareKit.framework */; };
 		4EDA592D1C7CED44006271D4 /* setting_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EDA592C1C7CED44006271D4 /* setting_icon.png */; };
 		4EFF21031C7F043C000D5853 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF21021C7F043C000D5853 /* UIView+Toast.m */; };
 /* End PBXBuildFile section */
@@ -181,6 +184,10 @@
 		4EC06B6F1C7CF62100B26F3D /* create_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = create_btn.png; sourceTree = "<group>"; };
 		4EC385F21C7D0A7300110B01 /* ShakeListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShakeListTableViewCell.h; sourceTree = "<group>"; };
 		4EC385F31C7D0A7300110B01 /* ShakeListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShakeListTableViewCell.m; sourceTree = "<group>"; };
+		4ECB9DE31C8AFCAD00339C9C /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		4ECB9DE51C8AFCBC00339C9C /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		4ECB9DE71C8AFCC400339C9C /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		4ECB9DE91C8B2B5800339C9C /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
 		4EDA592C1C7CED44006271D4 /* setting_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_icon.png; sourceTree = "<group>"; };
 		4EFF21011C7F043C000D5853 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		4EFF21021C7F043C000D5853 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
@@ -195,7 +202,10 @@
 				4E34D0421C7AF32600CE563A /* Security.framework in Frameworks */,
 				4E34D0401C7AF31600CE563A /* CFNetwork.framework in Frameworks */,
 				4E34D03E1C7AF30200CE563A /* libc++.tbd in Frameworks */,
+				4ECB9DE41C8AFCAD00339C9C /* FBSDKCoreKit.framework in Frameworks */,
+				4ECB9DE81C8AFCC400339C9C /* FBSDKShareKit.framework in Frameworks */,
 				4E34D03C1C7AF2C500CE563A /* libicucore.tbd in Frameworks */,
+				4ECB9DE61C8AFCBC00339C9C /* FBSDKLoginKit.framework in Frameworks */,
 				4E34D03A1C7AF1C800CE563A /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +261,7 @@
 			children = (
 				4E34D0091C7AF1B600CE563A /* AppDelegate.h */,
 				4E34D00A1C7AF1B600CE563A /* AppDelegate.m */,
+				4ECB9DE91C8B2B5800339C9C /* Define.h */,
 				4E395C1E1C86E1F100CD0584 /* ViewController */,
 				4EA41CE41C89BE33007C8282 /* REFrostedViewController */,
 				4E395C1F1C86E27300CD0584 /* EAIntroView */,
@@ -295,6 +306,9 @@
 		4E34D0451C7AF3B600CE563A /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				4ECB9DE71C8AFCC400339C9C /* FBSDKShareKit.framework */,
+				4ECB9DE51C8AFCBC00339C9C /* FBSDKLoginKit.framework */,
+				4ECB9DE31C8AFCAD00339C9C /* FBSDKCoreKit.framework */,
 				4E34D0431C7AF33A00CE563A /* SystemConfiguration.framework */,
 				4E34D0411C7AF32600CE563A /* Security.framework */,
 				4E34D03F1C7AF31600CE563A /* CFNetwork.framework */,
@@ -813,11 +827,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ShakeLists",
 				);
 				INFOPLIST_FILE = ShakeLists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.neil.ShakeLists;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neil.shakelists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -829,11 +844,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ShakeLists",
 				);
 				INFOPLIST_FILE = ShakeLists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.neil.ShakeLists;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neil.shakelists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
