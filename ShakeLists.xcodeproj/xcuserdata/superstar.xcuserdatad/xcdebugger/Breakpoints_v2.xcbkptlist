@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShakeLists/LoginHomeViewController.m"
-            timestampString = "479037585.578768"
+            timestampString = "479043597.552849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
             landmarkName = "-loginBlockForProviderName:"
             landmarkType = "5">
          </BreakpointContent>
