@@ -25,9 +25,6 @@
     // Hide navigation bar.
     [[self navigationController] setNavigationBarHidden:YES animated:YES];
 
-    NSString* userNameStr = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
-    self.view.hidden = NO;
-    
     self.userNameTextView.delegate = self;
     self.passwordTextView.delegate = self;
 }
@@ -98,13 +95,17 @@
                      
                      [self setLoadingIndicatorStatus:YES];
                      
-                     UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+                     UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
                      [self.navigationController pushViewController:controller animated:YES];
 
                  }];
              }
          }];
     }
+}
+
+- (IBAction)cancelButtonClicked:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 // Set the loading indicator when login.

@@ -54,10 +54,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MyNavigationViewController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
+    NSArray *IDs = ACTIVITIES_PER_MENU;
     
     if (indexPath.section == 0) {
-        MyShakeListViewController *homeViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
-        navigationController.viewControllers = @[homeViewController];
+        NSString *controllerID = IDs[indexPath.row];
+        UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:controllerID];
+        navigationController.viewControllers = @[controller];
         
     } else {
         NSLog(@"Logout");

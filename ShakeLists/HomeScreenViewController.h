@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "REFrostedViewController.h"
 
 @interface HomeScreenViewController : UIViewController
 
@@ -15,5 +16,6 @@
 - (IBAction)createButtonClicked:(id)sender;
 - (IBAction)takeButtonClicked:(id)sender;
 - (IBAction)inviteButtonClicked:(id)sender;
+- (IBAction)menuBarItemClicked:(id)sender;
 
 @end

@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *titleNavigationItem;
 
 - (IBAction)createNewShakeList:(id)sender;
-- (IBAction)backNewShakeList:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
 - (IBAction)nfswButtonClicked:(id)sender;
 - (IBAction)gRatedButtonClicked:(id)sender;
 - (IBAction)nfswCheckboxClicked:(id)sender;

@@ -31,7 +31,7 @@
     
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME_KEY];
     if (username != nil && FB_REF != NULL) {
-        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
         [self.navigationController pushViewController:viewController animated:YES];
         
     } else {
@@ -45,6 +45,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark introduction page.
 
 - (void)setIntroView {
     EAIntroPage *page1 = [EAIntroPage page];
@@ -122,6 +124,8 @@
 }
 */
 
+#pragma mark facebook login.
+
 // Login with facebook.
 - (IBAction)loginWithFacebook:(id)sender {
 
@@ -155,7 +159,7 @@
                                                            NSString *userName = [authData.providerData objectForKey:@"displayName"];
                                                            [[NSUserDefaults standardUserDefaults] setObject:userName forKey:USER_NAME_KEY];
                                                            
-                                                           UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+                                                           UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
                                                            [self.navigationController pushViewController:controller animated:YES];
                                                        }
                                                    }];
@@ -163,8 +167,12 @@
                                     }];
 }
 
+#pragma mark twitter login.
+
 // login with Twitter.
 - (IBAction)loginWithTwitter:(id)sender {
+    
+    [self setLoadingStatus:NO];
     
     self.twitterAuthHelper = [[TwitterAuthHelper alloc] initWithFirebaseRef:FB_REF apiKey:TWITTER_API_KEY];
     [self.twitterAuthHelper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
@@ -172,6 +180,8 @@
             NSString *message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", [error localizedDescription]];
             NSLog(@"%@", message);
             [self.navigationController.view makeToast:message];
+            
+            [self setLoadingStatus:YES];
 
         } else {
 //            [self.twitterAuthHelper authenticateAccount:[accounts firstObject]
@@ -249,10 +259,20 @@
                                  providerName,
                                  [error localizedDescription]];
             [self.navigationController.view makeToast:message];
+            [self setLoadingStatus:YES];
             
         } else {
             // all is fine, set the current user and update UI
-            NSLog(@"Logged In");
+            NSLog(@"Logged in! %@", authData);
+            NSLog(@"UserName : %@", [authData.providerData objectForKey:@"username"]);
+            [self.navigationController.view makeToast:@"Logged in successfully!"];
+            [self setLoadingStatus:YES];
+            
+            NSString *userName = [authData.providerData objectForKey:@"username"];
+            [[NSUserDefaults standardUserDefaults] setObject:userName forKey:USER_NAME_KEY];
+            
+            UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
+            [self.navigationController pushViewController:controller animated:YES];
         }
     };
 }

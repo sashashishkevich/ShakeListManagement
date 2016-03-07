@@ -128,7 +128,7 @@
     }
 }
 
-- (IBAction)backNewShakeList:(id)sender {
+- (IBAction)cancelButtonClicked:(id)sender {
 
     NSString *messageStr = @"Do you want to exit shakelist editing ?";
 

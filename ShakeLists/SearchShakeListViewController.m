@@ -242,8 +242,8 @@
     }
 }
 
-- (IBAction)backMyShakeList:(id)sender {
-    UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MyShakeListController"];
+- (IBAction)cancelButtonClicked:(id)sender {
+    UIViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"homeViewController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

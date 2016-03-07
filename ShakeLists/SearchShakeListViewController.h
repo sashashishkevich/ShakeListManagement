@@ -31,6 +31,6 @@
 - (IBAction)nfswButtonClicked:(id)sender;
 - (IBAction)gRatedButtonClicked:(id)sender;
 - (IBAction)searchShakeList:(id)sender;
-- (IBAction)backMyShakeList:(id)sender;
+- (IBAction)cancelButtonClicked:(id)sender;
 
 @end

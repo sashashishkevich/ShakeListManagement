@@ -601,6 +601,7 @@
 				TargetAttributes = {
 					4E34D0021C7AF1B600CE563A = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 5TR986GA46;
 					};
 					4E34D01B1C7AF1B600CE563A = {
 						CreatedOnToolsVersion = 7.2;
@@ -864,6 +865,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: sasha shishkevich (277F9975C3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sasha shishkevich (277F9975C3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -874,6 +877,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neil.shakelists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5b123f0b-cb6a-4771-bcbd-02c396f98a70";
 			};
 			name = Debug;
 		};
@@ -881,6 +885,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: sasha shishkevich (277F9975C3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: sasha shishkevich (277F9975C3)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -891,6 +897,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.neil.shakelists;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5b123f0b-cb6a-4771-bcbd-02c396f98a70";
 			};
 			name = Release;
 		};

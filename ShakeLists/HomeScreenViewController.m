@@ -18,6 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,5 +44,17 @@
 }
 
 - (IBAction)inviteButtonClicked:(id)sender {
+}
+
+- (IBAction)menuBarItemClicked:(id)sender {
+
+    // Dismiss keyboard (optional)
+    //
+    [self.view endEditing:YES];
+    [self.frostedViewController.view endEditing:YES];
+    
+    // Present the view controller
+    //
+    [self.frostedViewController presentMenuViewController];
 }
 @end
