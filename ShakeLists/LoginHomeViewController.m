@@ -7,6 +7,7 @@
 //
 
 #import "LoginHomeViewController.h"
+#import "TwitterAuthHelper.h"
 #import <Firebase/Firebase.h>
 #import "UIView+Toast.h"
 #import "Define.h"
@@ -164,8 +165,99 @@
 
 // login with Twitter.
 - (IBAction)loginWithTwitter:(id)sender {
+    
+    self.twitterAuthHelper = [[TwitterAuthHelper alloc] initWithFirebaseRef:FB_REF apiKey:TWITTER_API_KEY];
+    [self.twitterAuthHelper selectTwitterAccountWithCallback:^(NSError *error, NSArray *accounts) {
+        if (error) {
+            NSString *message = [NSString stringWithFormat:@"There was an error logging into Twitter: %@", [error localizedDescription]];
+            NSLog(@"%@", message);
+            [self.navigationController.view makeToast:message];
+
+        } else {
+//            [self.twitterAuthHelper authenticateAccount:[accounts firstObject]
+//                                           withCallback:[self loginBlockForProviderName:@"Twitter"]];
+            
+            // If you wanted something more complicated, comment the above line out, and use the below line instead.
+            [self twitterHandleAccounts:accounts];
+        }
+    }];
 }
 
+// ADV TWITTER STUFF
+- (void)twitterHandleAccounts:(NSArray *)accounts
+{
+    // Handle the case based on how many twitter accounts are registered with the phone.
+    switch ([accounts count]) {
+        case 0:
+            // There is currently no Twitter account on the device.
+            break;
+        case 1:
+            // Single user system, go straight to login
+            [self.twitterAuthHelper authenticateAccount:[accounts firstObject]
+                                           withCallback:[self loginBlockForProviderName:@"Twitter"]];
+            break;
+        default:
+            // Handle multiple users by showing action sheet
+            [self twitterShowAccountsSheet:accounts];
+            break;
+    }
+}
+
+// For this, you'll need to make sure that your ViewController is a UIActionSheetDelegate.
+- (void)twitterShowAccountsSheet:(NSArray *)accounts
+{
+    UIAlertController *selectUserActions = [UIAlertController
+                                            alertControllerWithTitle:@"Select Twitter Account"
+                                            message:nil
+                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    for (ACAccount *account in accounts) {
+        
+        [selectUserActions addAction:[UIAlertAction
+                                     actionWithTitle:[account username]
+                                     style:UIAlertActionStyleDefault
+                                     handler:^(UIAlertAction * _Nonnull action) {
+                                         NSLog(@"Twitter Account username : %@", [account username]);
+                                         
+                                         for (ACAccount *authHelperAccount in self.twitterAuthHelper.accounts) {
+                                             if ([[account username] isEqualToString:[authHelperAccount username]]) {
+                                                 [self.twitterAuthHelper authenticateAccount:account
+                                                                                withCallback:[self loginBlockForProviderName:@"Twitter"]];
+                                             }
+                                         }
+                                     }]];
+    }
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [selectUserActions dismissViewControllerAnimated:YES completion:nil];
+                                                         }];
+    [selectUserActions addAction:cancelButton];
+    
+    [self presentViewController:selectUserActions animated:YES completion:nil];
+}
+
+- (void(^)(NSError *, FAuthData *))loginBlockForProviderName:(NSString *)providerName
+{
+    // this callback block can be used for every login method
+    return ^(NSError *error, FAuthData *authData) {
+        if (error != nil) {
+            // there was an error authenticating with Firebase
+            NSLog(@"Error logging in to Firebase: %@", error);
+            // display an alert showing the error message
+            NSString *message = [NSString stringWithFormat:@"There was an error logging into Firebase using %@: %@",
+                                 providerName,
+                                 [error localizedDescription]];
+            [self.navigationController.view makeToast:message];
+            
+        } else {
+            // all is fine, set the current user and update UI
+            NSLog(@"Logged In");
+        }
+    };
+}
+
+// Set the loading status
 - (void)setLoadingStatus:(BOOL) flag {
     
     self.loadingIndicator.hidden = flag;

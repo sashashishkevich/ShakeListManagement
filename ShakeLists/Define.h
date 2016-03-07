@@ -27,4 +27,7 @@
 #define FB_REF [[Firebase alloc] initWithUrl: @"https://shakelist1.firebaseio.com"]
 #define MENU_TITLES @[@"Home", @"My Activity", @"My ShakeLists", @"Ball Pairing", @"Settings", @"Find Friends", @"About", @"Help"]
 
+#define TWITTER_API_KEY @"rMMte5SlWw019szLvYgVVVP7s"
+#define TWITTER_API_SECRET @"Ti1UO5HIYQwvd4DbKWBtqakDbY07xILYf6H49OJCJqeUhyHgFJ"
+
 #endif /* Define_h */

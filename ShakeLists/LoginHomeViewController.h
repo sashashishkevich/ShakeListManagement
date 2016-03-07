@@ -10,8 +10,9 @@
 #import "EAIntroView.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "TwitterAuthHelper.h"
 
-@interface LoginHomeViewController : UIViewController<EAIntroDelegate>
+@interface LoginHomeViewController : UIViewController<EAIntroDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *view1;
 @property (weak, nonatomic) IBOutlet UIView *view2;
@@ -20,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *twitterButton;
 @property (weak, nonatomic) IBOutlet UIButton *emailButton;
 @property (weak, nonatomic) IBOutlet UIButton *tutorialButton;
+
+// Twitter Auth Helper opbject
+@property (nonatomic, strong) TwitterAuthHelper *twitterAuthHelper;
 
 - (IBAction)loginWithFacebook:(id)sender;
 - (IBAction)loginWithTwitter:(id)sender;

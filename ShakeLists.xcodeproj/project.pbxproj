@@ -44,6 +44,9 @@
 		4E673B0A1C7DC31700511E79 /* ZFTokenField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E673B091C7DC31700511E79 /* ZFTokenField.m */; };
 		4E673B0C1C7DC3E000511E79 /* TokenView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E673B0B1C7DC3E000511E79 /* TokenView.xib */; };
 		4E73E5B21C8173F5002A5E5F /* EmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73E5B11C8173F5002A5E5F /* EmailLoginViewController.m */; };
+		4E954C571C8C878B009388F6 /* TwitterAuthHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E954C561C8C878B009388F6 /* TwitterAuthHelper.m */; };
+		4E954C591C8C87A0009388F6 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E954C581C8C87A0009388F6 /* Accounts.framework */; };
+		4E954C5B1C8C87AE009388F6 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E954C5A1C8C87AE009388F6 /* Social.framework */; };
 		4EA41CF11C89BE33007C8282 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA41CE61C89BE33007C8282 /* RECommonFunctions.m */; };
 		4EA41CF21C89BE33007C8282 /* REFrostedContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA41CE81C89BE33007C8282 /* REFrostedContainerViewController.m */; };
 		4EA41CF31C89BE33007C8282 /* REFrostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA41CEA1C89BE33007C8282 /* REFrostedViewController.m */; };
@@ -149,6 +152,10 @@
 		4E673B0B1C7DC3E000511E79 /* TokenView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TokenView.xib; path = ../TokenView.xib; sourceTree = "<group>"; };
 		4E73E5B01C8173F5002A5E5F /* EmailLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailLoginViewController.h; sourceTree = "<group>"; };
 		4E73E5B11C8173F5002A5E5F /* EmailLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailLoginViewController.m; sourceTree = "<group>"; };
+		4E954C551C8C878B009388F6 /* TwitterAuthHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterAuthHelper.h; sourceTree = "<group>"; };
+		4E954C561C8C878B009388F6 /* TwitterAuthHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterAuthHelper.m; sourceTree = "<group>"; };
+		4E954C581C8C87A0009388F6 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		4E954C5A1C8C87AE009388F6 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		4EA41CE51C89BE33007C8282 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
 		4EA41CE61C89BE33007C8282 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
 		4EA41CE71C89BE33007C8282 /* REFrostedContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REFrostedContainerViewController.h; sourceTree = "<group>"; };
@@ -198,6 +205,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E954C5B1C8C87AE009388F6 /* Social.framework in Frameworks */,
+				4E954C591C8C87A0009388F6 /* Accounts.framework in Frameworks */,
 				4E34D0441C7AF33A00CE563A /* SystemConfiguration.framework in Frameworks */,
 				4E34D0421C7AF32600CE563A /* Security.framework in Frameworks */,
 				4E34D0401C7AF31600CE563A /* CFNetwork.framework in Frameworks */,
@@ -306,6 +315,8 @@
 		4E34D0451C7AF3B600CE563A /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				4E954C5A1C8C87AE009388F6 /* Social.framework */,
+				4E954C581C8C87A0009388F6 /* Accounts.framework */,
 				4ECB9DE71C8AFCC400339C9C /* FBSDKShareKit.framework */,
 				4ECB9DE51C8AFCBC00339C9C /* FBSDKLoginKit.framework */,
 				4ECB9DE31C8AFCAD00339C9C /* FBSDKCoreKit.framework */,
@@ -443,6 +454,8 @@
 		4EBCB6371C88B1500031F68F /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
+				4E954C551C8C878B009388F6 /* TwitterAuthHelper.h */,
+				4E954C561C8C878B009388F6 /* TwitterAuthHelper.m */,
 				4E73E5B01C8173F5002A5E5F /* EmailLoginViewController.h */,
 				4E73E5B11C8173F5002A5E5F /* EmailLoginViewController.m */,
 				4EA9C2871C872EE800FEEAE9 /* LoginHomeViewController.h */,
@@ -679,6 +692,7 @@
 				4E673B0A1C7DC31700511E79 /* ZFTokenField.m in Sources */,
 				4E14CA4D1C81DCF2003AF385 /* PreviewModalViewController.m in Sources */,
 				4EA9C28E1C8737F100FEEAE9 /* EmailRegisterViewController.m in Sources */,
+				4E954C571C8C878B009388F6 /* TwitterAuthHelper.m in Sources */,
 				4E34D0081C7AF1B600CE563A /* main.m in Sources */,
 				4E6721BE1C8099CB004402DD /* SearchShakeListViewController.m in Sources */,
 				4EA41CF41C89BE33007C8282 /* UIImage+REFrostedViewController.m in Sources */,
